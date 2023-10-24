@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.function.Function;
 
 @Component
@@ -37,7 +38,7 @@ public class JWTUtils {
 
     private Claims getAllClaimsFromToken(String token){
         return Jwts.parser()
-                .setSigningKey(secret)
+                .setSigningKey(secret).build()//added build
                 .parseClaimsJws(token)
                 .getBody();
     }
@@ -59,7 +60,7 @@ public class JWTUtils {
     }
 
     private String doGenerateToken(String subject){
-        Claims claims = Jwts.claims().setSubject(subject);
+        Claims claims = Jwts.claims().setSubject(subject).build(); //added build
         claims.put("scopes",
                 Arrays.asList(new SimpleGrantedAuthority("LEARNER_ROLE"),
                 new SimpleGrantedAuthority("CODE_REVIEWER_ROLE")));
