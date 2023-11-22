@@ -7,11 +7,23 @@ import java.util.*;
 
 public class User implements UserDetails {
 
-    private Long id;
+    private static Long id = 0L;
     private Date cohortStartDate;
     private String username;
     private String password;
     private List<Authority> authorities;
+
+    public User() {
+        id += 1;
+    }
+
+    public User(Date cohortStartDate, String username, String password, List<Authority> authorities) {
+        id += 1;
+        this.cohortStartDate = cohortStartDate;
+        this.username = username;
+        this.password = password;
+        this.authorities = authorities;
+    }
 
     @Override
     public boolean isAccountNonExpired() {
