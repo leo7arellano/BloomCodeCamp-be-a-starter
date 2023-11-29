@@ -1,20 +1,30 @@
 package com.hcc.entities;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
 public class Assignment {
 
-    private static Long id = 0L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private static Long id;
+    @Column(name = "status")
     private String status;
+    @Column(name = "number")
     private Integer number;
+    @Column(name = "githubUrl")
     private String githubUrl;
+    @Column(name = "branch")
     private String branch;
+    @Column(name = "reviewVideoUrl")
     private String reviewVideoUrl;
+    @Column(name = "user")
     private User user;
+    @Column(name = "codeReviewer")
     private User codeReviewer;
 
     public Assignment(String status, Integer number, String githubUrl, String branch, String reviewVideoUrl, User user, User codeReviewer) {
-        id += 1;
         this.status = status;
         this.number = number;
         this.githubUrl = githubUrl;
@@ -25,7 +35,7 @@ public class Assignment {
     }
 
     public Assignment() {
-        id += 1;
+
     }
 
     public Long getId() {

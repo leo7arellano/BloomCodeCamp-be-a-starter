@@ -1,20 +1,25 @@
 package com.hcc.entities;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
 public class Authority {
 
-    private static Long id = 0L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private static Long id;
+    @Column(name = "authority")
     private String authority;
+    @Column(name = "user")
     private String user;
 
 
     public Authority() {
-        id += 1;
+
     }
 
     public Authority(String authority, String user) {
-        id += 1;
         this.authority = authority;
         this.user = user;
     }

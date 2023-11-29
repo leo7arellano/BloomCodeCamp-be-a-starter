@@ -3,22 +3,29 @@ package com.hcc.entities;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.*;
 import java.util.*;
 
+@Entity
 public class User implements UserDetails {
 
-    private static Long id = 0L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private static Long id;
+    @Column(name = "cohortStartDate")
     private Date cohortStartDate;
+    @Column(name = "username")
     private String username;
+    @Column(name = "password")
     private String password;
+    @Column(name = "authorities")
     private List<Authority> authorities;
 
     public User() {
-        id += 1;
+
     }
 
     public User(Date cohortStartDate, String username, String password, List<Authority> authorities) {
-        id += 1;
         this.cohortStartDate = cohortStartDate;
         this.username = username;
         this.password = password;
