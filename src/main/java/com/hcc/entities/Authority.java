@@ -1,25 +1,27 @@
 package com.hcc.entities;
 
 import javax.persistence.*;
-import java.util.Objects;
+import java.util.Optional;
+
 
 @Entity
+@Table(name = "authorities")
 public class Authority {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private static Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Column(name = "authority")
     private String authority;
-    @Column(name = "user")
-    private String user;
+    @ManyToOne(optional = false)
+    private User user;
 
 
     public Authority() {
 
     }
 
-    public Authority(String authority, String user) {
+    public Authority(String authority, User user) {
         this.authority = authority;
         this.user = user;
     }
@@ -40,33 +42,14 @@ public class Authority {
         this.authority = authority;
     }
 
-    public String getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(String user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Authority)) return false;
-        Authority authority1 = (Authority) o;
-        return Objects.equals(getId(), authority1.getId()) && Objects.equals(getAuthority(), authority1.getAuthority()) && Objects.equals(getUser(), authority1.getUser());
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getAuthority(), getUser());
-    }
 
-    @Override
-    public String toString() {
-        return "Authority{" +
-                "id=" + id +
-                ", authority='" + authority + '\'' +
-                ", user='" + user + '\'' +
-                '}';
-    }
 }

@@ -24,7 +24,7 @@ import static org.springframework.util.ObjectUtils.isEmpty;
 @Component
 public class JwtFilter extends OncePerRequestFilter {
     @Autowired
-    private UserRepository userRepo;
+    private UserRepository userRepository;
 
     @Autowired
     private JwtUtil jwtUtil;
@@ -44,7 +44,7 @@ public class JwtFilter extends OncePerRequestFilter {
         final String token = header.split(" ")[1].trim();
 
         // Get user identity
-        UserDetails userDetails = userRepo.findByUsername(jwtUtil.getUsernameFromToken(token)).orElse(null);
+        UserDetails userDetails = userRepository.findByUsername(jwtUtil.getUsernameFromToken(token)).orElse(null);
 
         if (!jwtUtil.validateToken(token, userDetails)) {
             filterChain.doFilter(request,response);

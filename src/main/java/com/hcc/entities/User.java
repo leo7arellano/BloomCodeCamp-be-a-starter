@@ -1,5 +1,6 @@
 package com.hcc.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -7,18 +8,20 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
+@Table(name = "users")
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private static Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Column(name = "cohortStartDate")
     private Date cohortStartDate;
     @Column(name = "username")
     private String username;
     @Column(name = "password")
     private String password;
-    @Column(name = "authorities")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    @JsonIgnore
     private List<Authority> authorities;
 
     public User() {
